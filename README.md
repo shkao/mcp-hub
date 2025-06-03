@@ -24,47 +24,60 @@ pip install -r requirements.txt
 
 ## Usage
 
-### Running a Server
+### Environment Variables
 
-To run a server, follow these steps:
+Before running the servers, set the required API keys and optional ports:
 
-1. Navigate to the `servers` directory:
+```bash
+export CWA_API_KEY=YOUR_CWA_API_KEY_HERE
+export SERPAPI_API_KEY=YOUR_SERPAPI_API_KEY_HERE
+# Optional: override default ports (defaults: 8000, 8001, 8002)
+export CWA_SERVER_PORT=8000
+export FLIGHTS_SERVER_PORT=8001
+export DICE_SERVER_PORT=8002
+```
 
-   ```bash
-   cd servers
-   ```
+You can also create a `.env` file from `.env.example` and source it:
 
-2. Execute the desired server script. For example, to start the CWA weather server, run:
+```bash
+cp .env.example .env
+source .env
+```
 
-   ```bash
-   python cwa_server.py
-   ```
+### Running Servers
 
-3. By default, the server will start on port 8000 and use Server-Sent Events (SSE) for communication.
+From the project root, start the desired server:
 
-4. To expose your local server to the internet, run the following command in a separate terminal:
+```bash
+# CWA weather server
+python servers/cwa_server.py
 
-   ```bash
-   grok http 8000
-   ```
+# SerpAPI flight search server
+python servers/serpapi_flights_server.py
 
-### Running an Example Client
+# Dice roller server
+python servers/dice_server.py
+```
 
-To test the server using an example client script, follow these steps:
+By default, each server will start on its configured port and use Server-Sent Events (SSE) for communication.
 
-1. Navigate to the `examples` directory:
+To expose your local server to the internet (e.g., via ngrok), run:
 
-   ```bash
-   cd examples
-   ```
+```bash
+grok http <port>
+```
 
-2. Run the example script to interact with the server using the OpenAI Python client:
+### Running Example Clients
 
-   ```bash
-   python test_mcp.py
-   ```
+Example client scripts are in the `examples/` directory. Update the `url` variable at the top of each script to point to your server's URL, then run:
 
-3. Before running the script, ensure you edit it to point to your server's URL and adjust any necessary parameters.
+```bash
+cd examples
+
+python test_cwa_server.py
+python test_serpapi_flights_server.py
+python test_dice_server.py
+```
 
 ## Adding New Servers
 

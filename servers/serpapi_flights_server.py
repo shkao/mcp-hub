@@ -46,10 +46,14 @@ def search_flights(
     Raises:
     - HTTPError: If the HTTP request to the SerpAPI fails.
     """
+    # Ensure the SerpAPI API key is provided
+    api_key = os.getenv("SERPAPI_API_KEY")
+    if not api_key:
+        raise EnvironmentError("Environment variable SERPAPI_API_KEY is not set. Please set it to access the SerpAPI.")
     url = "https://serpapi.com/search"
     params = {
         "engine": "google_flights",
-        "api_key": os.getenv("SERPAPI_API_KEY"),
+        "api_key": api_key,
         "departure_id": origin,
         "arrival_id": destination,
         "outbound_date": departure_date,
@@ -68,5 +72,7 @@ def search_flights(
 
 
 if __name__ == "__main__":
-    # Run the FastMCP server using Server-Sent Events (SSE) on port 8001
-    mcp.run(transport="sse", port=8001)
+    # Run the FastMCP server using Server-Sent Events (SSE)
+    # Allow overriding the port via environment variable
+    port = int(os.getenv("FLIGHTS_SERVER_PORT", "8001"))
+    mcp.run(transport="sse", port=port)

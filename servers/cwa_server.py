@@ -32,10 +32,11 @@ def get_weather_forecast(locationName: str = None) -> dict:
     - HTTPError: If the HTTP request to the CWA API fails.
     """
     url = "https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-C0032-001"
-    params = {}
+    # Ensure the CWA API key is provided
     api_key = os.getenv("CWA_API_KEY")
-    if api_key:
-        params["Authorization"] = api_key
+    if not api_key:
+        raise EnvironmentError("Environment variable CWA_API_KEY is not set. Please set it to access the CWA API.")
+    params = {"Authorization": api_key}
     if locationName:
         params["locationName"] = locationName
     response = requests.get(url, params=params)
@@ -44,5 +45,7 @@ def get_weather_forecast(locationName: str = None) -> dict:
 
 
 if __name__ == "__main__":
-    # Run the FastMCP server using Server-Sent Events (SSE) on port 8000
-    mcp.run(transport="sse", port=8000)
+    # Run the FastMCP server using Server-Sent Events (SSE)
+    # Allow overriding the port via environment variable
+    port = int(os.getenv("CWA_SERVER_PORT", "8000"))
+    mcp.run(transport="sse", port=port)
