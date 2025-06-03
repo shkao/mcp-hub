@@ -35,7 +35,9 @@ def get_weather_forecast(locationName: str = None) -> dict:
     # Ensure the CWA API key is provided
     api_key = os.getenv("CWA_API_KEY")
     if not api_key:
-        raise EnvironmentError("Environment variable CWA_API_KEY is not set. Please set it to access the CWA API.")
+        raise EnvironmentError(
+            "Environment variable CWA_API_KEY is not set. Please set it to access the CWA API."
+        )
     params = {"Authorization": api_key}
     if locationName:
         params["locationName"] = locationName

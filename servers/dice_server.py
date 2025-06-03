@@ -3,6 +3,7 @@ dice_server.py
 
 FastMCP server that rolls six-sided dice.
 """
+
 import os
 import random
 from typing import List

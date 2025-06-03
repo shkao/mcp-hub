@@ -49,7 +49,9 @@ def search_flights(
     # Ensure the SerpAPI API key is provided
     api_key = os.getenv("SERPAPI_API_KEY")
     if not api_key:
-        raise EnvironmentError("Environment variable SERPAPI_API_KEY is not set. Please set it to access the SerpAPI.")
+        raise EnvironmentError(
+            "Environment variable SERPAPI_API_KEY is not set. Please set it to access the SerpAPI."
+        )
     url = "https://serpapi.com/search"
     params = {
         "engine": "google_flights",
