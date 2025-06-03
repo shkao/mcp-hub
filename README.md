@@ -64,7 +64,7 @@ By default, each server will start on its configured port and use Server-Sent Ev
 To expose your local server to the internet (e.g., via ngrok), run:
 
 ```bash
-grok http <port>
+ngrok http <port>
 ```
 
 ### Running Example Clients

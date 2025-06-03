@@ -1,4 +1,6 @@
 from openai import OpenAI
+from rich.console import Console
+from rich.markdown import Markdown
 
 # Your server URL (replace with your actual URL)
 url = "http://localhost:8002"
@@ -18,4 +20,6 @@ resp = client.responses.create(
     input="請幫我擲 5 顆骰子，並回傳結果。",
 )
 
-print(resp.output_text)
+console = Console()
+markdown_output = Markdown(resp.output_text)
+console.print(markdown_output)
