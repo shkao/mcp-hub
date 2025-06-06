@@ -3,7 +3,7 @@ from rich.console import Console
 from rich.markdown import Markdown
 
 # Your server URL (replace with your actual URL)
-url = "https://a331-118-168-250-146.ngrok-free.app"
+url = "https://1b38-220-135-69-190.ngrok-free.app"
 
 client = OpenAI()
 
@@ -17,7 +17,7 @@ resp = client.responses.create(
             "require_approval": "never",
         },
     ],
-    input="幫我找2025/6/29-2025/7/3從台北出發到大阪的來回機票，需要最便宜且直飛的，但是排除廉價航空。",
+    input="請幫我搜尋 2025/6/28 - 2025/7/3 之間，從台北到大阪最便宜的來回機票",
 )
 
 console = Console()
